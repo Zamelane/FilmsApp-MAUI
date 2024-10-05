@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FilmsApp.Views.HomePage"
+             xmlns:vm="clr-namespace:FilmsApp.ViewModels">
+    
+    <ContentPage.BindingContext>
+        <vm:HomeViewModel/>
+    </ContentPage.BindingContext>
+
+    <VerticalStackLayout VerticalOptions="Center"
+                         Padding="{StaticResource Padding}"
+                         Spacing="{StaticResource Spacing}">
+        <Button Text="Просмотреть фильмы"
+                Command="{Binding NavigateToTopFilmsCommand}"
+                Style="{StaticResource BoldButton}"/>
+        <Button Text="Мои списки"
+                Command="{Binding NavigateToFilmsListsCommand}"
+                Style="{StaticResource BoldButton}"/>
+    </VerticalStackLayout>
+    
+</ContentPage>
