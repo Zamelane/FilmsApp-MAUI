@@ -10,5 +10,6 @@ namespace FilmsApp.Controllers
     public static class CoreController
     {
         public static TopFilmsPage topFilmsPage;
+        public static FilmsListsPage filmsListsPage;
     }
 }

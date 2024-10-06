@@ -1,11 +1,91 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FilmsApp.Views.FilmsListsPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             xmlns:acrylic="http://sharpnado.com"
+             x:Class="FilmsApp.Views.FilmsListsPage"
+             xmlns:vm="clr-namespace:FilmsApp.ViewModels">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Добавить список"
+                     IconImageSource="add.svg"
+                     Command="{Binding AddListCommand}"/>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.BindingContext>
+        <vm:FilmsListsViewModel/>
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <CollectionView ItemsSource="{Binding Lists}"
+                    SelectionMode="Single"
+                    SelectionChangedCommand="{Binding SelectListCommand}"
+                    SelectedItem="{Binding SelectedList}"
+                    Margin="5">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Border Stroke="Transparent" StrokeThickness="0" Margin="0,0,0,10">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup Name="CommonStates">
+                                <VisualState Name="Normal"/>
+                                <VisualState Name="Selected">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="Transparent"/>
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10" />
+                        </Border.StrokeShape>
+
+                        <Grid HeightRequest="70">
+                            <Image Aspect="AspectFill"
+                                   Source="https://static.okko.tv/images/v2/16443898"/>
+                            <acrylic:MaterialFrame MaterialTheme="AcrylicBlur">
+                                <Grid ColumnDefinitions="auto, *, auto"
+                                      RowDefinitions="auto, auto">
+                                    <Grid>
+                                        <Border Stroke="Transparent"
+                                                Opacity="0.9">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="10"/>
+                                            </Border.StrokeShape>
+                                            <Border.Background>
+                                                <LinearGradientBrush EndPoint="1,1">
+                                                    <GradientStop Color="White" Offset="0"/>
+                                                    <GradientStop Color="Transparent" Offset="1.0"/>
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                        </Border>
+                                        <Label Text="{Binding Title}"
+                                               FontAttributes="Bold"
+                                               Padding="5"/>
+                                    </Grid>
+                                    <Grid Grid.Column="2">
+                                        <Border Stroke="Transparent"
+                                                Opacity="0.9">
+                                            <Border.StrokeShape>
+                                                <RoundRectangle CornerRadius="10"/>
+                                            </Border.StrokeShape>
+                                            <Border.Background>
+                                                <LinearGradientBrush EndPoint="1,1">
+                                                    <GradientStop Color="Transparent" Offset="0"/>
+                                                    <GradientStop Color="White" Offset="1.0"/>
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                        </Border>
+                                        <Label Text="12 фильмов"
+                                               FontAttributes="Bold"
+                                               Padding="5"/>
+                                    </Grid>
+                                </Grid>
+                            </acrylic:MaterialFrame>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </ScrollView>
+
 </ContentPage>
