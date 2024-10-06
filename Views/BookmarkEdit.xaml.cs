@@ -34,9 +34,10 @@ public partial class BookmarkEdit : ContentPage
 
                 foreach (MoviesList list in coreController.FilmsListsViewModel.Lists)
                 {
-                    if (cbx.IsChecked)
-                        list.Movies.Add(editMovie);
-                    else list.Movies.Remove(editMovie);
+                    if (list.Title == cbx.AutomationId)
+                        if (cbx.IsChecked)
+                            list.Movies.Add(editMovie);
+                        else list.Movies.Remove(editMovie);
                 }
 
                 coreController.FilmsListsViewModel.Update();

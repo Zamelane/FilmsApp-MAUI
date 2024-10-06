@@ -4,13 +4,16 @@ using FilmsApp.Models;
 using System.Windows.Input;
 using FilmsApp.Controllers;
 using CommunityToolkit.Mvvm.Input;
+using FilmsApp.Views;
 
 namespace FilmsApp.ViewModels
 {
     public partial class FilmsListsViewModel : ObservableObject
     {
         [ObservableProperty] ObservableCollection<MoviesList> lists = new();
+        [ObservableProperty] MoviesList selectedList;
         public ICommand AddListCommand { get; }
+        public ICommand SelectListCommand { get; }
         CoreController coreController { get; set; }
 
         private async void AddList()
@@ -37,9 +40,17 @@ namespace FilmsApp.ViewModels
                 });
         }
 
+        private async void SelectList()
+        {
+            if (coreController == null)
+                coreController = DependencyService.Get<CoreController>();
+            await coreController.FilmsListsPage.Navigation.PushAsync(new TopFilmsPage(SelectedList));
+        }
+
         public FilmsListsViewModel()
         {
             AddListCommand = new RelayCommand(AddList);
+            SelectListCommand = new RelayCommand(SelectList);
             lists.Add(new() { Movies = [], Title = "Мой листик" });
         }
 
