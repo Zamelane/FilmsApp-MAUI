@@ -2,18 +2,13 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:acrylic="http://sharpnado.com"
-             x:Class="FilmsApp.Views.FilmsListsPage"
-             xmlns:vm="clr-namespace:FilmsApp.ViewModels">
+             x:Class="FilmsApp.Views.FilmsListsPage">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Добавить список"
                      IconImageSource="add.svg"
                      Command="{Binding AddListCommand}"/>
     </ContentPage.ToolbarItems>
-
-    <ContentPage.BindingContext>
-        <vm:FilmsListsViewModel/>
-    </ContentPage.BindingContext>
 
     <ScrollView>
         <CollectionView ItemsSource="{Binding Lists}"
@@ -41,7 +36,7 @@
 
                         <Grid HeightRequest="70">
                             <Image Aspect="AspectFill"
-                                   Source="https://static.okko.tv/images/v2/16443898"/>
+                                   Source="{Binding ImageUrl}"/>
                             <acrylic:MaterialFrame MaterialTheme="AcrylicBlur">
                                 <Grid ColumnDefinitions="auto, *, auto"
                                       RowDefinitions="auto, auto">
@@ -75,7 +70,7 @@
                                                 </LinearGradientBrush>
                                             </Border.Background>
                                         </Border>
-                                        <Label Text="12 фильмов"
+                                        <Label Text="{Binding FilmsCount}"
                                                FontAttributes="Bold"
                                                Padding="5"/>
                                     </Grid>

@@ -13,11 +13,14 @@ namespace FilmsApp.ViewModels
         [ObservableProperty] public ObservableCollection<Movie> movies;
         [ObservableProperty] public Movie selectedMovie;
         public ICommand SelectMovieCommand { get; }
-
+        CoreController coreController { get; set; }
+        // Application.Current.MainPage.Handler.MauiContext.Services.GetService<CoreController>();
         private void SelectMovie()
         {
-            if (selectedMovie != null)
-                CoreController.topFilmsPage.Navigation.PushAsync(new FilmInfo());
+            if (coreController == null)
+                coreController = DependencyService.Get<CoreController>();
+            if (selectedMovie != null && coreController != null)
+                coreController.TopFilmsPage.Navigation.PushAsync(new FilmInfo());
         }
 
         public TopFilmsModel()

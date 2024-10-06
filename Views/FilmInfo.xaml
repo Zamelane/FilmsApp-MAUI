@@ -5,7 +5,14 @@
              x:Class="FilmsApp.Views.FilmInfo"
              Title="Информация о фильме">
 
-    <StackLayout BindingContext="{Binding SelectedMovie}">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Добавить в список"
+                     IconImageSource="bookmark.svg"
+                     BindingContext="{Binding .}"
+                     Command="{Binding BookmarkEditCommand}"/>
+    </ContentPage.ToolbarItems>
+
+    <StackLayout BindingContext="{Binding TopFilmsPageContext.SelectedMovie}">
         <Grid RowDefinitions="300, *">
             <Image Source="{Binding ImageUrl}" Aspect="AspectFill"/>
             <Grid>
@@ -16,7 +23,7 @@
                     </LinearGradientBrush>
                 </Grid.Background>
             </Grid>
-            <acrylic:MaterialFrame MaterialTheme="AcrylicBlur">
+            <acrylic:MaterialFrame AndroidBlurRadius="20" MaterialTheme="AcrylicBlur">
                 <Border WidthRequest="200" Stroke="Transparent">
                     <Border.StrokeShape>
                         <RoundRectangle CornerRadius="10"/>

@@ -1,15 +1,16 @@
-﻿using FilmsApp.Views;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using FilmsApp.ViewModels;
+using FilmsApp.Views;
 
 namespace FilmsApp.Controllers
 {
-    public static class CoreController
+    public partial class CoreController : ObservableObject, ICoreController
     {
-        public static TopFilmsPage topFilmsPage;
-        public static FilmsListsPage filmsListsPage;
+        [ObservableProperty] private TopFilmsPage topFilmsPage;
+        [ObservableProperty] private FilmsListsPage filmsListsPage;
+
+        [ObservableProperty] private FilmsListsViewModel filmsListsViewModel = new();
+        [ObservableProperty] private TopFilmsModel topFilmsModel = new();
+        [ObservableProperty] private HomeViewModel homeViewModel = new();
     }
 }

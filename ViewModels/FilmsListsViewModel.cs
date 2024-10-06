@@ -11,17 +11,21 @@ namespace FilmsApp.ViewModels
     {
         [ObservableProperty] ObservableCollection<MoviesList> lists = new();
         public ICommand AddListCommand { get; }
+        CoreController coreController { get; set; }
 
         private async void AddList()
         {
-            var name = await CoreController.filmsListsPage.DisplayPromptAsync(
+            if (coreController == null)
+                coreController = DependencyService.Get<CoreController>();
+
+            var name = await coreController.FilmsListsPage.DisplayPromptAsync(
                 "Создание списка",
                 "Введите название:",
                 "ОК",
                 "Отмена");
 
             if (name == String.Empty || name == null)
-                await CoreController.filmsListsPage.DisplayAlert(
+                await coreController.FilmsListsPage.DisplayAlert(
                     "Ошибка создания",
                     "Название списка не должно быть пустым",
                     "ОК");
@@ -37,6 +41,13 @@ namespace FilmsApp.ViewModels
         {
             AddListCommand = new RelayCommand(AddList);
             lists.Add(new() { Movies = [], Title = "Мой листик" });
+        }
+
+        public void Update()
+        {
+            OnPropertyChanged(nameof(lists));
+            foreach (var list in lists)
+                list.Update(coreController);
         }
     }
 }
