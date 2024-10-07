@@ -9,6 +9,7 @@
         <ScrollView x:Name="RootContent"
                     Grid.Row="1"/>
         <Button Grid.Row="2"
-                Text="назад"/>
+                Text="назад"
+                Command="{Binding ExitCommand}"/>
     </Grid>
 </ContentPage>

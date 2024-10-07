@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="FilmsApp.Views.TopFilmsPage">
+             x:Class="FilmsApp.Views.TopFilmsPage"
+             xmlns:vm="clr-namespace:FilmsApp.Views">
 
     <ScrollView>
-        <CollectionView ItemsSource="{Binding Movies}"
+        <CollectionView ItemsSource="{Binding TopFilmsModel.Movies}"
                         SelectionMode="Single"
                         x:Name="ItemsCollectionView"
-                        SelectionChangedCommand="{Binding SelectMovieCommand}"
-                        SelectedItem="{Binding SelectedMovie}"
                         ItemsLayout="VerticalGrid, 2"
                         Margin="5">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Border MinimumHeightRequest="250">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Path=TapToFilmCommand, Source={RelativeSource AncestorType={x:Type vm:TopFilmsPage}}}"
+                                                  CommandParameter="{Binding .}"/>
+                        </Border.GestureRecognizers>
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup Name="CommonStates">
                                 <VisualState Name="Normal"/>

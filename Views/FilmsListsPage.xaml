@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:acrylic="http://sharpnado.com"
-             x:Class="FilmsApp.Views.FilmsListsPage">
+             x:Class="FilmsApp.Views.FilmsListsPage"
+             xmlns:vm="clr-namespace:FilmsApp.Views">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Добавить список"
@@ -13,12 +14,14 @@
     <ScrollView>
         <CollectionView ItemsSource="{Binding Lists}"
                     SelectionMode="Single"
-                    SelectionChangedCommand="{Binding SelectListCommand}"
-                    SelectedItem="{Binding SelectedList}"
                     Margin="5">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Border Stroke="Transparent" StrokeThickness="0" Margin="0,0,0,10">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Path=TapToListCommand, Source={RelativeSource AncestorType={x:Type vm:FilmsListsPage}}}"
+                          CommandParameter="{Binding .}"/>
+                        </Border.GestureRecognizers>
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup Name="CommonStates">
                                 <VisualState Name="Normal"/>
@@ -37,45 +40,45 @@
                         <Grid HeightRequest="70">
                             <Image Aspect="AspectFill"
                                    Source="{Binding ImageUrl}"/>
-                            <acrylic:MaterialFrame MaterialTheme="AcrylicBlur">
-                                <Grid ColumnDefinitions="auto, *, auto"
-                                      RowDefinitions="auto, auto">
-                                    <Grid>
-                                        <Border Stroke="Transparent"
+                            <Grid ColumnDefinitions="auto, *, auto"
+                                      RowDefinitions="auto, auto"
+                                    VerticalOptions="Center"
+                                    Margin="5">
+                                <Grid>
+                                    <Border Stroke="Transparent"
                                                 Opacity="0.9">
-                                            <Border.StrokeShape>
-                                                <RoundRectangle CornerRadius="10"/>
-                                            </Border.StrokeShape>
-                                            <Border.Background>
-                                                <LinearGradientBrush EndPoint="1,1">
-                                                    <GradientStop Color="White" Offset="0"/>
-                                                    <GradientStop Color="Transparent" Offset="1.0"/>
-                                                </LinearGradientBrush>
-                                            </Border.Background>
-                                        </Border>
-                                        <Label Text="{Binding Title}"
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="10"/>
+                                        </Border.StrokeShape>
+                                        <Border.Background>
+                                            <LinearGradientBrush EndPoint="1,1">
+                                                <GradientStop Color="White" Offset="0"/>
+                                                <GradientStop Color="Transparent" Offset="1.0"/>
+                                            </LinearGradientBrush>
+                                        </Border.Background>
+                                    </Border>
+                                    <Label Text="{Binding Title}"
                                                FontAttributes="Bold"
                                                Padding="5"/>
-                                    </Grid>
-                                    <Grid Grid.Column="2">
-                                        <Border Stroke="Transparent"
-                                                Opacity="0.9">
-                                            <Border.StrokeShape>
-                                                <RoundRectangle CornerRadius="10"/>
-                                            </Border.StrokeShape>
-                                            <Border.Background>
-                                                <LinearGradientBrush EndPoint="1,1">
-                                                    <GradientStop Color="Transparent" Offset="0"/>
-                                                    <GradientStop Color="White" Offset="1.0"/>
-                                                </LinearGradientBrush>
-                                            </Border.Background>
-                                        </Border>
-                                        <Label Text="{Binding FilmsCount}"
-                                               FontAttributes="Bold"
-                                               Padding="5"/>
-                                    </Grid>
                                 </Grid>
-                            </acrylic:MaterialFrame>
+                                <Grid Grid.Column="2">
+                                    <Border Stroke="Transparent"
+                                                Opacity="0.9">
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="10"/>
+                                        </Border.StrokeShape>
+                                        <Border.Background>
+                                            <LinearGradientBrush EndPoint="1,1">
+                                                <GradientStop Color="Transparent" Offset="0"/>
+                                                <GradientStop Color="White" Offset="1.0"/>
+                                            </LinearGradientBrush>
+                                        </Border.Background>
+                                    </Border>
+                                    <Label Text="{Binding FilmsCount}"
+                                               FontAttributes="Bold"
+                                               Padding="5"/>
+                                </Grid>
+                            </Grid>
                         </Grid>
                     </Border>
                 </DataTemplate>

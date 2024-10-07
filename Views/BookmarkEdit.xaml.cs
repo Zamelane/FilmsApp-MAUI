@@ -1,16 +1,22 @@
+using CommunityToolkit.Mvvm.Input;
 using FilmsApp.Controllers;
 using FilmsApp.Models;
 using FilmsApp.ViewModels;
+using System.Windows.Input;
 
 namespace FilmsApp.Views;
 
 public partial class BookmarkEdit : ContentPage
 {
     CoreController coreController { get; set; } = DependencyService.Get<CoreController>();
+    FilmsListsViewModel FilmsListsViewModel { get; set; }
+    public ICommand ExitCommand { get; }
     public BookmarkEdit(Movie editMovie)
 	{
+        ExitCommand = new RelayCommand(Exit);
         InitializeComponent();
-        this.BindingContext = coreController.FilmsListsViewModel;
+        FilmsListsViewModel = coreController.FilmsListsViewModel;
+        this.BindingContext = this;
 
         StackLayout sl = new();
 
@@ -60,5 +66,10 @@ public partial class BookmarkEdit : ContentPage
         }
 
         this.RootContent.Content = sl;
+    }
+
+    private void Exit()
+    {
+        Navigation.PopModalAsync();
     }
 }

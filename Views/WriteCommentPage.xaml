@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FilmsApp.Views.WriteCommentPage"
+             Title="WriteCommentPage">
+    <VerticalStackLayout>
+        <Editor Placeholder="Ваш комментарий"
+                Margin="5"
+                MinimumHeightRequest="100"
+                Text=""
+                x:Name="editor"/>
+        
+        <Slider x:Name="slider"
+                Minimum="1"
+                Maximum="5"
+                Value="5"
+                Margin="5"
+                ValueChanged="Slider_ValueChanged"/>
+
+        <Label x:Name="mark" Text="Ваша оценка: 5"
+               Margin="20,0,0,0"/>
+
+        <Button Text="Отправить" Margin="25"
+                Clicked="Button_Clicked">
+            <Button.Triggers>
+                <DataTrigger TargetType="Button"
+                             Binding="{Binding Source={x:Reference editor}, Path=Text.Length}" Value="0">
+                    <Setter Property="IsEnabled" Value="False" />
+                    <Setter Property="BackgroundColor" Value="LightGray" />
+                    <Setter Property="TextColor" Value="Gray" />
+                </DataTrigger>
+            </Button.Triggers>
+        </Button>
+    </VerticalStackLayout>
+</ContentPage>

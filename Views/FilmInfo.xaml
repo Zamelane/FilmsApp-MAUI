@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:acrylic="http://sharpnado.com"
              x:Class="FilmsApp.Views.FilmInfo"
+             xmlns:vm="clr-namespace:FilmsApp.Views"
              Title="Информация о фильме">
 
     <ContentPage.ToolbarItems>
@@ -12,37 +13,42 @@
                      Command="{Binding BookmarkEditCommand}"/>
     </ContentPage.ToolbarItems>
 
-    <StackLayout BindingContext="{Binding TopFilmsPageContext.SelectedMovie}">
-        <Grid RowDefinitions="300, *">
-            <Image Source="{Binding ImageUrl}" Aspect="AspectFill"/>
-            <Grid>
-                <Grid.Background>
-                    <LinearGradientBrush EndPoint="0,1">
-                        <GradientStop Color="Transparent" Offset="0.3"/>
-                        <GradientStop Color="White" Offset="1.0"/>
-                    </LinearGradientBrush>
-                </Grid.Background>
+    <ScrollView >
+        <StackLayout BindingContext="{Binding SelectedMovie}">
+            <Grid RowDefinitions="300, *">
+                <Image Source="{Binding ImageUrl}" Aspect="AspectFill"/>
+                <Grid>
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="0,1">
+                            <GradientStop Color="Transparent" Offset="0.3"/>
+                            <GradientStop Color="White" Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                </Grid>
+                <acrylic:MaterialFrame AndroidBlurRadius="20" MaterialTheme="AcrylicBlur">
+                    <Border WidthRequest="200" Stroke="Transparent">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10"/>
+                        </Border.StrokeShape>
+                        <Image Source="{Binding ImageUrl}" Aspect="AspectFill"/>
+                    </Border>
+                </acrylic:MaterialFrame>
             </Grid>
-            <acrylic:MaterialFrame AndroidBlurRadius="20" MaterialTheme="AcrylicBlur">
-                <Border WidthRequest="200" Stroke="Transparent">
-                    <Border.StrokeShape>
-                        <RoundRectangle CornerRadius="10"/>
-                    </Border.StrokeShape>
-                    <Image Source="{Binding ImageUrl}" Aspect="AspectFill"/>
-                </Border>
-            </acrylic:MaterialFrame>
-        </Grid>
-        <Label Text="{Binding Title}"
-               HorizontalTextAlignment="Center"
-               FontSize="25"
-               FontAttributes="Bold"
-               Margin="10,0,10,0"/>
-        <Border HeightRequest="1"
-                Margin="10"
-                Opacity="0.3"/>
-        <Label Text="{Binding Description}"
-               Margin="10,0,10,0"
-               HorizontalTextAlignment="Center"/>
-    </StackLayout>
+            <Label Text="{Binding Title}"
+                   HorizontalTextAlignment="Center"
+                   FontSize="25"
+                   FontAttributes="Bold"
+                   Margin="10,0,10,0"/>
+            <Border HeightRequest="1"
+                    Margin="10"
+                    Opacity="0.3"/>
+            <Label Text="{Binding Description}"
+                   Margin="10,0,10,0"
+                   HorizontalTextAlignment="Center"/>
+            <Button Margin="10,10,10,40"
+                    Text="Написать комментарий"
+                    Command="{Binding Path=WriteCommentCommand, Source={RelativeSource AncestorType={x:Type vm:FilmInfo}}}"/>
+        </StackLayout>
+    </ScrollView>
 
 </ContentPage>

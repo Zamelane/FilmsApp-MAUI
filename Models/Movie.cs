@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System.Collections.ObjectModel;
 
 namespace FilmsApp.Models
 {
@@ -8,5 +9,6 @@ namespace FilmsApp.Models
         [ObservableProperty] private string title;
         [ObservableProperty] private string genre;
         [ObservableProperty] private string description = "Без описания";
+        [ObservableProperty] private ObservableCollection<Comment> comments = new();
     }
 }
